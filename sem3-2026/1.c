@@ -1,81 +1,95 @@
 #include <stdio.h>
 
-int stringLength(char str[])
+int stringLength(char *str) 
 {
-    int i = 0;
+    char *p = str;
 
-    while(str[i] != '\0') 
-    {
-        i++;
+    while(*p != '\0') {
+        p++;
     }
 
-    return i;
+    return p - str;
 }
 
-void stringConcat(char str1[], char str2[], char result[]) 
+void stringConcat(char *str1, char *str2, char *result) 
 {
-    int i = 0, j = 0;
+    char *p = str1;
+    char *q = str2;
+    char *r = result;
 
-    while(str1[i] != '\0') 
+    while(*p != '\0') 
     {
-        result[i] = str1[i];
-        i++;
+        *r = *p;
+        p++;
+        r++;
     }
 
-    while(str2[j] != '\0') 
+    while(*q != '\0') 
     {
-        result[i] = str2[j];
-        i++;
-        j++;
+        *r = *q;
+        q++;
+        r++;
     }
 
-    result[i] = '\0';
+    *r = '\0';
 }
 
-int stringCompare(char str1[], char str2[]) 
+int stringCompare(char *str1, char *str2) 
 {
-    int i = 0;
-
-    while(str1[i] != '\0' && str2[i] != '\0') 
+    while(*str1 != '\0' && *str2 != '\0') 
     {
-        if(str1[i] != str2[i]) 
+        if(*str1 != *str2) 
         {
-            return str1[i] - str2[i];
+            return *str1 - *str2;
         }
-        i++;
+
+        str1++;
+        str2++;
     }
 
-    return str1[i] - str2[i];
+    return *str1 - *str2;
 }
 
-void insertSubstring(char str[], char sub[], int pos) 
+void insertSubstring(char *str, char *sub, int pos) 
 {
-    int i, len1, len2;
+    char *p;
+    char *q;
+    int len1, len2;
 
     len1 = stringLength(str);
     len2 = stringLength(sub);
 
-    for(i = len1; i >= pos; i--) 
+    p = str + len1;
+
+    while(p >= str + pos) 
     {
-        str[i + len2] = str[i];
+        *(p + len2) = *p;
+        p--;
     }
 
-    for(i = 0; i < len2; i++) 
+    q = sub;
+
+    while(*q != '\0') 
     {
-        str[pos + i] = sub[i];
+        *(str + pos) = *q;
+        q++;
+        pos++;
     }
 }
 
-void deleteSubstring(char str[], int pos, int len) 
+void deleteSubstring(char *str, int pos, int len) 
 {
-    int i;
+    char *p = str + pos;
+    char *q = p + len;
 
-    for(i = pos; str[i + len] != '\0'; i++) 
+    while(*q != '\0') 
     {
-        str[i] = str[i + len];
+        *p = *q;
+        p++;
+        q++;
     }
 
-    str[i] = '\0';
+    *p = '\0';
 }
 
 int main() 
@@ -125,3 +139,37 @@ int main()
 
     return 0;
 }
+
+
+
+
+
+/*
+
+Enter first string: Hello
+Enter second string: World
+
+Enter substring to insert: ABC
+Enter position to insert: 2
+
+Enter position to delete from: 2
+Enter number of characters to delete: 3
+
+
+
+
+
+Length of first string = 5
+Length of second string = 5
+Concatenated string = HelloWorld
+First string is smaller than second string
+
+After insertion = HeABCllo
+
+After deletion = Hello
+
+
+
+
+
+*/
