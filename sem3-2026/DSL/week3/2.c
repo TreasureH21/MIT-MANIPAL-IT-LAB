@@ -1,63 +1,59 @@
 #include <stdio.h>
 
-struct Student 
+struct Student
 {
     char name[50];
     int roll_no;
     char grade;
 };
 
-void readStudents(struct Student *s, int n) 
+void readStudents(struct Student s[], int n)
 {
-    struct Student *p = s;
+    int i;
 
-    while(p < s + n) 
+    for(i = 0; i < n; i++)
     {
-        printf("\nEnter details of student:\n");
+        printf("\nEnter details of student %d:\n", i + 1);
 
         printf("Name: ");
-        scanf("%s", p->name);
+        scanf("%s", s[i].name);
 
         printf("Roll No: ");
-        scanf("%d", &p->roll_no);
+        scanf("%d", &s[i].roll_no);
 
         printf("Grade: ");
-        scanf(" %c", &p->grade);
-
-        p++;
+        scanf(" %c", &s[i].grade);
     }
 }
 
-void displayStudents(struct Student *s, int n) 
+void displayStudents(struct Student s[], int n)
 {
-    struct Student *p = s;
+    int i;
 
     printf("\nStudent Details:\n");
 
-    while(p < s + n) {
-        printf("\nName: %s", p->name);
-        printf("\nRoll No: %d", p->roll_no);
-        printf("\nGrade: %c\n", p->grade);
-
-        p++;
+    for(i = 0; i < n; i++)
+    {
+        printf("\nName: %s", s[i].name);
+        printf("\nRoll No: %d", s[i].roll_no);
+        printf("\nGrade: %c\n", s[i].grade);
     }
 }
 
-void sortStudents(struct Student *s, int n) 
+void sortStudents(struct Student s[], int n)
 {
-    struct Student *p;
-    struct Student *q;
+    int i, j;
     struct Student temp;
 
-    for(p = s; p < s + n - 1; p++) 
+    for(i = 0; i < n - 1; i++)
     {
-        for(q = p + 1; q < s + n; q++) 
+        for(j = i + 1; j < n; j++)
         {
-            if(p->roll_no > q->roll_no) 
+            if(s[i].roll_no > s[j].roll_no)
             {
-                temp = *p;
-                *p = *q;
-                *q = temp;
+                temp = s[i];
+                s[i] = s[j];
+                s[j] = temp;
             }
         }
     }
@@ -92,31 +88,26 @@ int main()
 
 /*
 
-
 Enter number of students: 3
 
-Enter details of student:
+Enter details of student 1:
 Name: Rahul
 Roll No: 103
 Grade: A
 
-Enter details of student:
+Enter details of student 2:
 Name: Anu
 Roll No: 101
 Grade: B
 
-Enter details of student:
+Enter details of student 3:
 Name: Kiran
 Roll No: 102
 Grade: A
 
-
-
-
-
-
-
 Before Sorting:
+Student Details:
+
 Name: Rahul
 Roll No: 103
 Grade: A
@@ -130,6 +121,8 @@ Roll No: 102
 Grade: A
 
 After Sorting according to Roll Number:
+Student Details:
+
 Name: Anu
 Roll No: 101
 Grade: B
@@ -141,6 +134,4 @@ Grade: A
 Name: Rahul
 Roll No: 103
 Grade: A
-
-
 */
