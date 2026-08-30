@@ -160,3 +160,24 @@ int main()
 
     return 0;
 }
+
+
+
+/*
+----- STACK OPERATIONS -----
+1. Check Palindrome
+2. Check Matching Parentheses
+3. Exit
+
+Enter your choice: 1
+Enter a string: MADAM
+The string is a palindrome.
+
+
+
+
+Enter your choice: 2
+Enter an expression: {[a+b]*(c-d)}
+Parentheses are matching.
+
+*/
