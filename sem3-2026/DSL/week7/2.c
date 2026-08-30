@@ -83,7 +83,9 @@ void infixToPrefix(char infix[], char prefix[])
     {
         ch = infix[i];
 
-        if(isalnum(ch))
+    if((ch >= 'A' && ch <= 'Z') ||
+       (ch >= 'a' && ch <= 'z') ||
+       (ch >= '0' && ch <= '9'))
         {
             prefix[j] = ch;
             j++;
