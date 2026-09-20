@@ -168,33 +168,5 @@ Enter your choice: 2
 Enter your choice: 3
 Queue: 20 30
 
-Enter your choice: 1
-Enter value: 40
-40 inserted into queue.
-
-Enter your choice: 1
-Enter value: 50
-50 inserted into queue.
-
-Enter your choice: 1
-Enter value: 60
-60 inserted into queue.
-
-Enter your choice: 1
-Enter value: 70
-Queue is full.
-
-Enter your choice: 3
-Queue: 20 30 40 50 60
-
-Enter your choice: 2
-20 deleted from queue.
-
-Enter your choice: 2
-30 deleted from queue.
-
-Enter your choice: 3
-Queue: 40 50 60
-
 Enter your choice: 4
 */
