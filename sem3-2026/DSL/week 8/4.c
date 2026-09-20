@@ -1,3 +1,8 @@
+/*
+Q4. Create a queue of structures for patients with name, age, and priority.
+Implement enqueue and dequeue operations.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -26,30 +31,16 @@ void initialize(struct Queue *q)
     q->rear = NULL;
 }
 
-void enqueue(struct Queue *q)
+void enqueue(struct Queue *q, struct Patient p)
 {
     struct Node *newNode;
 
-    newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode = (struct Node *)malloc(sizeof(struct Node));
 
-    if(newNode == NULL)
-    {
-        printf("Memory allocation failed.\n");
-        return;
-    }
-
-    printf("Enter patient name: ");
-    scanf("%s", newNode->patient.name);
-
-    printf("Enter age: ");
-    scanf("%d", &newNode->patient.age);
-
-    printf("Enter priority: ");
-    scanf("%d", &newNode->patient.priority);
-
+    newNode->patient = p;
     newNode->next = NULL;
 
-    if(q->rear == NULL)
+    if (q->rear == NULL)
     {
         q->front = newNode;
         q->rear = newNode;
@@ -67,22 +58,22 @@ void dequeue(struct Queue *q)
 {
     struct Node *temp;
 
-    if(q->front == NULL)
+    if (q->front == NULL)
     {
-        printf("Queue is empty.\n");
+        printf("Patient queue is empty.\n");
         return;
     }
 
     temp = q->front;
 
-    printf("\nServing Patient:\n");
+    printf("\nTreating Patient:\n");
     printf("Name: %s\n", temp->patient.name);
     printf("Age: %d\n", temp->patient.age);
     printf("Priority: %d\n", temp->patient.priority);
 
     q->front = q->front->next;
 
-    if(q->front == NULL)
+    if (q->front == NULL)
         q->rear = NULL;
 
     free(temp);
@@ -90,64 +81,60 @@ void dequeue(struct Queue *q)
 
 void display(struct Queue *q)
 {
-    struct Node *p;
+    struct Node *temp;
 
-    if(q->front == NULL)
+    if (q->front == NULL)
     {
-        printf("Queue is empty.\n");
+        printf("Patient queue is empty.\n");
         return;
     }
 
-    p = q->front;
+    temp = q->front;
 
     printf("\nPatient Queue:\n");
 
-    while(p != NULL)
+    while (temp != NULL)
     {
-        printf("\nName: %s", p->patient.name);
-        printf("\nAge: %d", p->patient.age);
-        printf("\nPriority: %d\n", p->patient.priority);
+        printf("Name: %s, Age: %d, Priority: %d\n",
+               temp->patient.name,
+               temp->patient.age,
+               temp->patient.priority);
 
-        p = p->next;
+        temp = temp->next;
     }
-}
-
-void freeQueue(struct Queue *q)
-{
-    struct Node *temp;
-
-    while(q->front != NULL)
-    {
-        temp = q->front;
-        q->front = q->front->next;
-        free(temp);
-    }
-
-    q->rear = NULL;
 }
 
 int main()
 {
     struct Queue q;
+    struct Patient p;
     int choice;
 
     initialize(&q);
 
-    do
+    while (1)
     {
-        printf("\n----- PATIENT QUEUE -----\n");
+        printf("\n--- Patient Queue ---\n");
         printf("1. Add Patient\n");
-        printf("2. Serve Patient\n");
+        printf("2. Treat Patient\n");
         printf("3. Display Queue\n");
         printf("4. Exit\n");
-
-        printf("\nEnter choice: ");
+        printf("Enter your choice: ");
         scanf("%d", &choice);
 
-        switch(choice)
+        switch (choice)
         {
             case 1:
-                enqueue(&q);
+                printf("Enter patient name: ");
+                scanf(" %[^\n]", p.name);
+
+                printf("Enter age: ");
+                scanf("%d", &p.age);
+
+                printf("Enter priority: ");
+                scanf("%d", &p.priority);
+
+                enqueue(&q, p);
                 break;
 
             case 2:
@@ -159,15 +146,39 @@ int main()
                 break;
 
             case 4:
-                freeQueue(&q);
-                printf("Exiting...\n");
-                break;
+                return 0;
 
             default:
                 printf("Invalid choice.\n");
         }
+    }
 
-    } while(choice != 4);
+    /*
+    SAMPLE INPUT/OUTPUT:
 
-    return 0;
+    Enter your choice: 1
+    Enter patient name: Rahul
+    Enter age: 25
+    Enter priority: 2
+    Patient added to queue.
+
+    Enter your choice: 1
+    Enter patient name: Anu
+    Enter age: 30
+    Enter priority: 1
+    Patient added to queue.
+
+    Enter your choice: 3
+
+    Patient Queue:
+    Name: Rahul, Age: 25, Priority: 2
+    Name: Anu, Age: 30, Priority: 1
+
+    Enter your choice: 2
+
+    Treating Patient:
+    Name: Rahul
+    Age: 25
+    Priority: 2
+    */
 }
