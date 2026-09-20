@@ -1,6 +1,6 @@
 /*
 Q4. Create a queue of structures
-(e.g., queue of patients with name, age, and priority).
+(e.g., queue of patients with name and age).
 */
 
 #include <stdio.h>
@@ -11,7 +11,6 @@ struct Patient
 {
     char name[30];
     int age;
-    int priority;
 };
 
 struct Patient queue[MAX];
@@ -35,9 +34,6 @@ void enqueue()
 
     printf("Enter age: ");
     scanf("%d", &queue[rear].age);
-
-    printf("Enter priority: ");
-    scanf("%d", &queue[rear].priority);
 
     printf("Patient added.\n");
 }
@@ -73,10 +69,9 @@ void display()
 
     for (i = front; i <= rear; i++)
     {
-        printf("Name: %s, Age: %d, Priority: %d\n",
+        printf("Name: %s, Age: %d\n",
                queue[i].name,
-               queue[i].age,
-               queue[i].priority);
+               queue[i].age);
     }
 }
 
@@ -114,27 +109,27 @@ int main()
                 printf("Invalid choice.\n");
         }
     }
-
-    /*
-    SAMPLE INPUT/OUTPUT:
-
-    Enter choice: 1
-    Enter patient name: Rahul
-    Enter age: 25
-    Enter priority: 2
-    Patient added.
-
-    Enter choice: 1
-    Enter patient name: Anu
-    Enter age: 30
-    Enter priority: 1
-    Patient added.
-
-    Enter choice: 3
-    Name: Rahul, Age: 25, Priority: 2
-    Name: Anu, Age: 30, Priority: 1
-
-    Enter choice: 2
-    Patient treated: Rahul
-    */
 }
+
+/*
+SAMPLE INPUT/OUTPUT:
+
+Enter choice: 1
+Enter patient name: Rahul
+Enter age: 25
+Patient added.
+
+Enter choice: 1
+Enter patient name: Anu
+Enter age: 30
+Patient added.
+
+Enter choice: 3
+Name: Rahul, Age: 25
+Name: Anu, Age: 30
+
+Enter choice: 2
+Patient treated: Rahul
+
+Enter choice: 4
+*/
