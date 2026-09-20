@@ -13,6 +13,7 @@ ii. Evaluate a postfix expression using stack.
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+$#include <math.h>
 
 struct Node
 {
@@ -132,6 +133,8 @@ int calculate(int a, int b, char op)
         return a / b;
     else if (op == '%')
         return a % b;
+    else if (op == '^')
+        return pow(a, b);
     else
         return 0;
 }
