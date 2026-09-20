@@ -1,8 +1,18 @@
+/*
+Q1. Write a C program to simulate a printer queue where tasks arrive randomly
+and are processed in order.
+
+i. Tasks (with a document ID and name) arrive at random (simulate using
+random function or user input).
+ii. Enqueue each print job.
+iii. Dequeue in FIFO order to simulate printing.
+*/
+
 #include <stdio.h>
 
-#define MAX 100
+#define MAX 5
 
-struct Job
+struct PrintJob
 {
     int id;
     char name[50];
@@ -10,7 +20,7 @@ struct Job
 
 struct Queue
 {
-    struct Job jobs[MAX];
+    struct PrintJob jobs[MAX];
     int front;
     int rear;
 };
@@ -23,41 +33,45 @@ void initialize(struct Queue *q)
 
 void enqueue(struct Queue *q, int id, char name[])
 {
-    if(q->rear == MAX - 1)
+    if (q->rear == MAX - 1)
     {
-        printf("Queue is full.\n");
+        printf("Printer queue is full.\n");
         return;
     }
 
-    if(q->front == -1)
+    if (q->front == -1)
         q->front = 0;
 
     q->rear++;
 
     q->jobs[q->rear].id = id;
-    sprintf(q->jobs[q->rear].name, "%s", name);
 
-    printf("Print job added.\n");
+    int i = 0;
+    while (name[i] != '\0')
+    {
+        q->jobs[q->rear].name[i] = name[i];
+        i++;
+    }
+    q->jobs[q->rear].name[i] = '\0';
+
+    printf("Print job added successfully.\n");
 }
 
 void dequeue(struct Queue *q)
 {
-    struct Job job;
-
-    if(q->front == -1 || q->front > q->rear)
+    if (q->front == -1 || q->front > q->rear)
     {
-        printf("Queue is empty.\n");
+        printf("Printer queue is empty.\n");
         return;
     }
 
-    job = q->jobs[q->front];
-
-    printf("Printing Document ID: %d, Name: %s\n",
-           job.id, job.name);
+    printf("Printing document ID: %d, Name: %s\n",
+           q->jobs[q->front].id,
+           q->jobs[q->front].name);
 
     q->front++;
 
-    if(q->front > q->rear)
+    if (q->front > q->rear)
     {
         q->front = -1;
         q->rear = -1;
@@ -68,17 +82,17 @@ void display(struct Queue *q)
 {
     int i;
 
-    if(q->front == -1)
+    if (q->front == -1)
     {
-        printf("Queue is empty.\n");
+        printf("Printer queue is empty.\n");
         return;
     }
 
-    printf("\nPrinter Queue:\n");
+    printf("\nPrint Queue:\n");
 
-    for(i = q->front; i <= q->rear; i++)
+    for (i = q->front; i <= q->rear; i++)
     {
-        printf("ID: %d, Name: %s\n",
+        printf("ID: %d  Name: %s\n",
                q->jobs[i].id,
                q->jobs[i].name);
     }
@@ -87,31 +101,29 @@ void display(struct Queue *q)
 int main()
 {
     struct Queue q;
-    int choice;
-    int id;
+    int choice, id;
     char name[50];
 
     initialize(&q);
 
-    do
+    while (1)
     {
-        printf("\n----- PRINTER QUEUE -----\n");
+        printf("\n--- Printer Queue ---\n");
         printf("1. Add Print Job\n");
-        printf("2. Process Print Job\n");
+        printf("2. Print Next Job\n");
         printf("3. Display Queue\n");
         printf("4. Exit\n");
-
-        printf("\nEnter choice: ");
+        printf("Enter your choice: ");
         scanf("%d", &choice);
 
-        switch(choice)
+        switch (choice)
         {
             case 1:
-                printf("Enter Document ID: ");
+                printf("Enter document ID: ");
                 scanf("%d", &id);
 
-                printf("Enter Document Name: ");
-                scanf("%s", name);
+                printf("Enter document name: ");
+                scanf(" %[^\n]", name);
 
                 enqueue(&q, id, name);
                 break;
@@ -125,14 +137,37 @@ int main()
                 break;
 
             case 4:
-                printf("Exiting...\n");
-                break;
+                return 0;
 
             default:
                 printf("Invalid choice.\n");
         }
+    }
 
-    } while(choice != 4);
+    /*
+    SAMPLE INPUT/OUTPUT:
 
-    return 0;
+    --- Printer Queue ---
+    1. Add Print Job
+    2. Print Next Job
+    3. Display Queue
+    4. Exit
+    Enter your choice: 1
+    Enter document ID: 101
+    Enter document name: Assignment
+
+    Print job added successfully.
+
+    Enter your choice: 1
+    Enter document ID: 102
+    Enter document name: Record
+
+    Print job added successfully.
+
+    Enter your choice: 2
+    Printing document ID: 101, Name: Assignment
+
+    Enter your choice: 2
+    Printing document ID: 102, Name: Record
+    */
 }
