@@ -134,30 +134,67 @@ int main()
                 printf("Invalid choice.\n");
         }
     }
-
-    /*
-    SAMPLE INPUT/OUTPUT:
-
-    Enter your choice: 1
-    Enter value: 10
-    10 inserted into queue.
-
-    Enter your choice: 1
-    Enter value: 20
-    20 inserted into queue.
-
-    Enter your choice: 1
-    Enter value: 30
-    30 inserted into queue.
-
-    Enter your choice: 2
-    10 deleted from queue.
-
-    Enter your choice: 1
-    Enter value: 40
-    40 inserted into queue.
-
-    Enter your choice: 3
-    Queue: 20 30 40
-    */
 }
+
+/*
+SAMPLE INPUT/OUTPUT:
+
+--- Circular Queue ---
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+Enter your choice: 3
+Queue is empty.
+
+Enter your choice: 1
+Enter value: 10
+10 inserted into queue.
+
+Enter your choice: 1
+Enter value: 20
+20 inserted into queue.
+
+Enter your choice: 1
+Enter value: 30
+30 inserted into queue.
+
+Enter your choice: 3
+Queue: 10 20 30
+
+Enter your choice: 2
+10 deleted from queue.
+
+Enter your choice: 3
+Queue: 20 30
+
+Enter your choice: 1
+Enter value: 40
+40 inserted into queue.
+
+Enter your choice: 1
+Enter value: 50
+50 inserted into queue.
+
+Enter your choice: 1
+Enter value: 60
+60 inserted into queue.
+
+Enter your choice: 1
+Enter value: 70
+Queue is full.
+
+Enter your choice: 3
+Queue: 20 30 40 50 60
+
+Enter your choice: 2
+20 deleted from queue.
+
+Enter your choice: 2
+30 deleted from queue.
+
+Enter your choice: 3
+Queue: 40 50 60
+
+Enter your choice: 4
+*/
