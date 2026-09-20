@@ -134,26 +134,27 @@ int main()
                 printf("Invalid choice.\n");
         }
     }
-
-    /*
-    SAMPLE INPUT/OUTPUT:
-
-    Enter your choice: 1
-    Enter value: 10
-    10 inserted into queue.
-
-    Enter your choice: 1
-    Enter value: 20
-    20 inserted into queue.
-
-    Enter your choice: 1
-    Enter value: 30
-    30 inserted into queue.
-
-    Enter your choice: 2
-    10 deleted from queue.
-
-    Enter your choice: 3
-    Queue: 20 30
-    */
 }
+/*
+SAMPLE INPUT/OUTPUT:
+
+Enter your choice: 1
+Enter value: 10
+10 inserted into queue.
+
+Enter your choice: 1
+Enter value: 20
+20 inserted into queue.
+
+Enter your choice: 1
+Enter value: 30
+30 inserted into queue.
+
+Enter your choice: 2
+10 deleted from queue.
+
+Enter your choice: 3
+Queue: 20 30
+
+Enter your choice: 4
+*/
