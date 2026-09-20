@@ -1,3 +1,8 @@
+/*
+Q3. Implement a queue using a singly linked list with enqueue and dequeue
+operations.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -23,18 +28,12 @@ void enqueue(struct Queue *q, int value)
 {
     struct Node *newNode;
 
-    newNode = (struct Node*)malloc(sizeof(struct Node));
-
-    if(newNode == NULL)
-    {
-        printf("Memory allocation failed.\n");
-        return;
-    }
+    newNode = (struct Node *)malloc(sizeof(struct Node));
 
     newNode->data = value;
     newNode->next = NULL;
 
-    if(q->rear == NULL)
+    if (q->rear == NULL)
     {
         q->front = newNode;
         q->rear = newNode;
@@ -45,7 +44,7 @@ void enqueue(struct Queue *q, int value)
         q->rear = newNode;
     }
 
-    printf("%d inserted.\n", value);
+    printf("%d inserted into queue.\n", value);
 }
 
 void dequeue(struct Queue *q)
@@ -53,7 +52,7 @@ void dequeue(struct Queue *q)
     struct Node *temp;
     int value;
 
-    if(q->front == NULL)
+    if (q->front == NULL)
     {
         printf("Queue is empty.\n");
         return;
@@ -64,76 +63,59 @@ void dequeue(struct Queue *q)
 
     q->front = q->front->next;
 
-    if(q->front == NULL)
+    if (q->front == NULL)
         q->rear = NULL;
 
     free(temp);
 
-    printf("%d deleted.\n", value);
+    printf("%d deleted from queue.\n", value);
 }
 
 void display(struct Queue *q)
 {
-    struct Node *p;
+    struct Node *temp;
 
-    if(q->front == NULL)
+    if (q->front == NULL)
     {
         printf("Queue is empty.\n");
         return;
     }
 
-    p = q->front;
+    temp = q->front;
 
     printf("Queue: ");
 
-    while(p != NULL)
+    while (temp != NULL)
     {
-        printf("%d ", p->data);
-        p = p->next;
+        printf("%d ", temp->data);
+        temp = temp->next;
     }
 
     printf("\n");
 }
 
-void freeQueue(struct Queue *q)
-{
-    struct Node *temp;
-
-    while(q->front != NULL)
-    {
-        temp = q->front;
-        q->front = q->front->next;
-        free(temp);
-    }
-
-    q->rear = NULL;
-}
-
 int main()
 {
     struct Queue q;
-    int choice;
-    int value;
+    int choice, value;
 
     initialize(&q);
 
-    do
+    while (1)
     {
-        printf("\n----- LINKED LIST QUEUE -----\n");
+        printf("\n--- Linked List Queue ---\n");
         printf("1. Enqueue\n");
         printf("2. Dequeue\n");
         printf("3. Display\n");
         printf("4. Exit\n");
-
-        printf("\nEnter choice: ");
+        printf("Enter your choice: ");
         scanf("%d", &choice);
 
-        switch(choice)
+        switch (choice)
         {
             case 1:
                 printf("Enter value: ");
                 scanf("%d", &value);
-
                 enqueue(&q, value);
                 break;
 
@@ -146,15 +128,32 @@ int main()
                 break;
 
             case 4:
-                freeQueue(&q);
-                printf("Exiting...\n");
-                break;
+                return 0;
 
             default:
                 printf("Invalid choice.\n");
         }
+    }
 
-    } while(choice != 4);
+    /*
+    SAMPLE INPUT/OUTPUT:
 
-    return 0;
+    Enter your choice: 1
+    Enter value: 10
+    10 inserted into queue.
+
+    Enter your choice: 1
+    Enter value: 20
+    20 inserted into queue.
+
+    Enter your choice: 1
+    Enter value: 30
+    30 inserted into queue.
+
+    Enter your choice: 2
+    10 deleted from queue.
+
+    Enter your choice: 3
+    Queue: 20 30
+    */
 }
