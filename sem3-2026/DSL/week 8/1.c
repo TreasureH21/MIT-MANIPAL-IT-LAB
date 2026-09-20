@@ -143,31 +143,45 @@ int main()
                 printf("Invalid choice.\n");
         }
     }
-
-    /*
-    SAMPLE INPUT/OUTPUT:
-
-    --- Printer Queue ---
-    1. Add Print Job
-    2. Print Next Job
-    3. Display Queue
-    4. Exit
-    Enter your choice: 1
-    Enter document ID: 101
-    Enter document name: Assignment
-
-    Print job added successfully.
-
-    Enter your choice: 1
-    Enter document ID: 102
-    Enter document name: Record
-
-    Print job added successfully.
-
-    Enter your choice: 2
-    Printing document ID: 101, Name: Assignment
-
-    Enter your choice: 2
-    Printing document ID: 102, Name: Record
-    */
 }
+
+/*
+SAMPLE INPUT/OUTPUT:
+
+--- Printer Queue ---
+1. Add Print Job
+2. Print Next Job
+3. Display Queue
+4. Exit
+Enter your choice: 1
+Enter document ID: 101
+Enter document name: Assignment
+Print job added successfully.
+
+Enter your choice: 1
+Enter document ID: 102
+Enter document name: Record
+Print job added successfully.
+
+Enter your choice: 3
+
+Print Queue:
+ID: 101  Name: Assignment
+ID: 102  Name: Record
+
+Enter your choice: 2
+Printing document ID: 101, Name: Assignment
+
+Enter your choice: 3
+
+Print Queue:
+ID: 102  Name: Record
+
+Enter your choice: 2
+Printing document ID: 102, Name: Record
+
+Enter your choice: 3
+Printer queue is empty.
+
+Enter your choice: 4
+*/
