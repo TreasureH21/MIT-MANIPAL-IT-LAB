@@ -444,3 +444,70 @@ int main()
 
     return 0;
 }
+
+
+
+
+
+/*
+SAMPLE INPUT/OUTPUT:
+
+----- SINGLY LINKED LIST -----
+1. Insert before an element
+2. Insert after an element
+3. Delete an element
+4. Display list
+5. Reverse list
+6. Sort list
+7. Delete alternate nodes
+8. Insert into sorted list
+9. Exit
+
+Enter your choice: 1
+Enter element before which to insert: 25
+Enter value to insert: 10
+Element 10 inserted before 25.
+
+Enter your choice: 2
+Enter element after which to insert: 25
+Enter value to insert: 40
+Element 40 inserted after 25.
+
+Enter your choice: 4
+List: 10 25 40
+
+Enter your choice: 3
+Enter element to delete: 25
+Element 25 deleted.
+
+Enter your choice: 4
+List: 10 40
+
+Enter your choice: 5
+List reversed successfully.
+
+Enter your choice: 4
+List: 40 10
+
+Enter your choice: 6
+List sorted successfully.
+
+Enter your choice: 4
+List: 10 40
+
+Enter your choice: 7
+Alternate nodes deleted.
+
+Enter your choice: 4
+List: 10
+
+Enter your choice: 8
+Enter value to insert into sorted list: 20
+Element inserted in sorted order.
+
+Enter your choice: 4
+List: 10 20
+
+Enter your choice: 9
+Memory freed. Exiting...
+*/
