@@ -13,7 +13,7 @@ ii. Evaluate a postfix expression using stack.
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-$#include <math.h>
+#include <math.h>
 
 struct Node
 {
