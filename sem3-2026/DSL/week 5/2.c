@@ -83,17 +83,6 @@ void display(struct Node *head)
     printf("\n");
 }
 
-void freeList(struct Node *head)
-{
-    struct Node *temp;
-
-    while (head != NULL)
-    {
-        temp = head;
-        head = head->next;
-        free(temp);
-    }
-}
 
 int main()
 {
@@ -134,9 +123,6 @@ int main()
 
     printf("After concatenation: ");
     display(X1);
-
-    freeList(X1);
-
     /*
     SAMPLE INPUT/OUTPUT:
 
