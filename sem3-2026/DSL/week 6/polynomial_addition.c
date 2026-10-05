@@ -17,24 +17,26 @@ and next pointers are maintained correctly.
 
 struct Node
 {
-    int coefficient;
-    int exponent;
+    int coeff;
+    int pow;
     struct Node *prev;
     struct Node *next;
 };
 
-struct Node *createNode(int coefficient, int exponent)
+struct Node* createNode(int coeff, int pow)
 {
-    struct Node *newNode = malloc(sizeof(struct Node));
+    struct Node *newNode;
+
+    newNode = (struct Node*)malloc(sizeof(struct Node));
 
     if (newNode == NULL)
     {
         printf("Memory allocation failed.\n");
-        exit(EXIT_FAILURE);
+        exit(1);
     }
 
-    newNode->coefficient = coefficient;
-    newNode->exponent = exponent;
+    newNode->coeff = coeff;
+    newNode->pow = pow;
     newNode->prev = NULL;
     newNode->next = NULL;
 
@@ -42,14 +44,14 @@ struct Node *createNode(int coefficient, int exponent)
 }
 
 void insertRear(struct Node **head, struct Node **tail,
-                int coefficient, int exponent)
+                int coeff, int pow)
 {
     struct Node *newNode;
 
-    if (coefficient == 0)
+    if (coeff == 0)
         return;
 
-    newNode = createNode(coefficient, exponent);
+    newNode = createNode(coeff, pow);
 
     if (*head == NULL)
     {
@@ -64,9 +66,9 @@ void insertRear(struct Node **head, struct Node **tail,
     }
 }
 
-void displayPolynomial(struct Node *head)
+void display(struct Node *head)
 {
-    struct Node *temp = head;
+    struct Node *p = head;
     int first = 1;
 
     if (head == NULL)
@@ -75,96 +77,82 @@ void displayPolynomial(struct Node *head)
         return;
     }
 
-    while (temp != NULL)
+    while (p != NULL)
     {
-        int coeff = temp->coefficient;
-        int exp = temp->exponent;
-
         if (!first)
         {
-            if (coeff >= 0)
+            if (p->coeff >= 0)
                 printf(" + ");
             else
                 printf(" - ");
         }
-        else if (coeff < 0)
+        else if (p->coeff < 0)
         {
             printf("-");
         }
 
-        if (abs(coeff) != 1 || exp == 0)
-            printf("%d", abs(coeff));
+        if (abs(p->coeff) != 1 || p->pow == 0)
+            printf("%d", abs(p->coeff));
 
-        if (exp > 0)
+        if (p->pow > 0)
         {
             printf("x");
 
-            if (exp != 1)
-                printf("^%d", exp);
+            if (p->pow != 1)
+                printf("^%d", p->pow);
         }
 
         first = 0;
-        temp = temp->next;
+        p = p->next;
     }
 }
 
-struct Node *addPolynomials(struct Node *head1,
-                            struct Node *head2,
-                            struct Node **tailResult)
+struct Node* add(struct Node *head1, struct Node *head2,
+                 struct Node **tailResult)
 {
-    struct Node *resultHead = NULL;
+    struct Node *result = NULL;
     struct Node *p = head1;
     struct Node *q = head2;
 
     while (p != NULL && q != NULL)
     {
-        if (p->exponent == q->exponent)
+        if (p->pow == q->pow)
         {
-            int sum = p->coefficient + q->coefficient;
+            int sum = p->coeff + q->coeff;
 
-            if (sum != 0)
-            {
-                insertRear(&resultHead, tailResult,
-                           sum, p->exponent);
-            }
+            insertRear(&result, tailResult, sum, p->pow);
 
             p = p->next;
             q = q->next;
         }
-        else if (p->exponent > q->exponent)
+        else if (p->pow > q->pow)
         {
-            insertRear(&resultHead, tailResult,
-                       p->coefficient, p->exponent);
-
+            insertRear(&result, tailResult, p->coeff, p->pow);
             p = p->next;
         }
         else
         {
-            insertRear(&resultHead, tailResult,
-                       q->coefficient, q->exponent);
-
+            insertRear(&result, tailResult, q->coeff, q->pow);
             q = q->next;
         }
     }
 
     while (p != NULL)
     {
-        insertRear(&resultHead, tailResult,
-                   p->coefficient, p->exponent);
+        insertRear(&result, tailResult, p->coeff, p->pow);
         p = p->next;
     }
 
     while (q != NULL)
     {
-        insertRear(&resultHead, tailResult,
-                   q->coefficient, q->exponent);
+        insertRear(&result, tailResult, q->coeff, q->pow);
         q = q->next;
     }
 
-    return resultHead;
+    return result;
 }
 
-void freePolynomial(struct Node *head)
+void freeList(struct Node *head)
 {
     struct Node *temp;
 
@@ -178,56 +166,27 @@ void freePolynomial(struct Node *head)
 
 void readPolynomial(struct Node **head, struct Node **tail)
 {
-    int n;
-    int coefficient;
-    int exponent;
-    int i;
+    int n, coeff, pow, i;
 
     printf("Enter number of terms: ");
-
-    if (scanf("%d", &n) != 1)
-    {
-        printf("Invalid input!\n");
-        exit(EXIT_FAILURE);
-    }
-
-    if (n < 0)
-    {
-        printf("Number of terms cannot be negative.\n");
-        exit(EXIT_FAILURE);
-    }
+    scanf("%d", &n);
 
     printf("Enter terms in descending order of exponent.\n");
 
     for (i = 0; i < n; i++)
     {
-        printf("Enter coefficient and exponent for term %d: ",
-               i + 1);
+        printf("Enter coefficient and exponent: ");
+        scanf("%d %d", &coeff, &pow);
 
-        if (scanf("%d %d", &coefficient, &exponent) != 2)
-        {
-            printf("Invalid input!\n");
-            exit(EXIT_FAILURE);
-        }
-
-        insertRear(head, tail, coefficient, exponent);
+        insertRear(head, tail, coeff, pow);
     }
 }
 
 int main()
 {
-    struct Node *head1 = NULL;
-    struct Node *tail1 = NULL;
-
-    struct Node *head2 = NULL;
-    struct Node *tail2 = NULL;
-
-    struct Node *resultHead = NULL;
-    struct Node *resultTail = NULL;
-
-    printf("=====================================\n");
-    printf("     POLYNOMIAL ADDITION USING DLL\n");
-    printf("=====================================\n\n");
+    struct Node *head1 = NULL, *tail1 = NULL;
+    struct Node *head2 = NULL, *tail2 = NULL;
+    struct Node *result = NULL, *resultTail = NULL;
 
     printf("Enter first polynomial:\n");
     readPolynomial(&head1, &tail1);
@@ -235,24 +194,44 @@ int main()
     printf("\nEnter second polynomial:\n");
     readPolynomial(&head2, &tail2);
 
-    resultHead = addPolynomials(head1, head2, &resultTail);
+    result = add(head1, head2, &resultTail);
 
-    printf("\n-------------------------------------\n");
-
-    printf("First Polynomial  : ");
-    displayPolynomial(head1);
+    printf("\nFirst Polynomial  : ");
+    display(head1);
 
     printf("\nSecond Polynomial : ");
-    displayPolynomial(head2);
+    display(head2);
 
     printf("\nSum               : ");
-    displayPolynomial(resultHead);
+    display(result);
 
-    printf("\n-------------------------------------\n");
+    printf("\n");
 
-    freePolynomial(head1);
-    freePolynomial(head2);
-    freePolynomial(resultHead);
+    freeList(head1);
+    freeList(head2);
+    freeList(result);
 
     return 0;
+
+    /*
+    SAMPLE INPUT/OUTPUT:
+
+    Enter first polynomial:
+    Enter number of terms: 3
+    Enter terms in descending order of exponent.
+    Enter coefficient and exponent: 3 2
+    Enter coefficient and exponent: 2 1
+    Enter coefficient and exponent: 5 0
+
+    Enter second polynomial:
+    Enter number of terms: 3
+    Enter terms in descending order of exponent.
+    Enter coefficient and exponent: 4 2
+    Enter coefficient and exponent: 3 1
+    Enter coefficient and exponent: 2 0
+
+    First Polynomial  : 3x^2 + 2x + 5
+    Second Polynomial : 4x^2 + 3x + 2
+    Sum               : 7x^2 + 5x + 7
+    */
 }
